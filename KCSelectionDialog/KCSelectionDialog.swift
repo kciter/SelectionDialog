@@ -9,29 +9,29 @@
 import UIKit
 
 public class KCSelectionDialog: UIView {
-    var items: [KCSelectionDialogItem] = []
+    public var items: [KCSelectionDialogItem] = []
     
-    var titleHeight: CGFloat = 50
-    var buttonHeight: CGFloat = 50
-    var cornerRadius: CGFloat = 7
+    public var titleHeight: CGFloat = 50
+    public var buttonHeight: CGFloat = 50
+    public var cornerRadius: CGFloat = 7
     
-    var useMotionEffects: Bool = true
-    var motionEffectExtent: Int = 10
+    public var useMotionEffects: Bool = true
+    public var motionEffectExtent: Int = 10
     
-    var title: String? = "Title"
-    var closeButtonTitle: String? = "Close"
-    var closeButtonColor: UIColor?
-    var closeButtonColorHighlighted: UIColor?
+    public var title: String? = "Title"
+    public var closeButtonTitle: String? = "Close"
+    public var closeButtonColor: UIColor?
+    public var closeButtonColorHighlighted: UIColor?
     
     private var dialogView: UIView!
     private var containerView: UIView!
     
-    init() {
+    public init() {
         super.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height))
         setObservers()
     }
     
-    init(title: String, closeButtonTitle cancelString: String) {
+    public init(title: String, closeButtonTitle cancelString: String) {
         self.title = title
         self.closeButtonTitle = cancelString
         super.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height))
