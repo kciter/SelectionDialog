@@ -122,12 +122,16 @@ public class KCSelectionDialog: UIView {
                 itemButton.addTarget(item, action: "handlerTap", forControlEvents: .TouchUpInside)
                 
                 if item.icon != nil {
-                    itemTitleLabel.frame.origin.x = 40
-                    let itemIcon = UIImageView(frame: CGRectMake(10, 15, 20, 20))
+                    itemTitleLabel.frame.origin.x = 54
+                    let itemIcon = UIImageView(frame: CGRectMake(10, 8, 34, 34))
                     itemIcon.image = item.icon
                     itemButton.addSubview(itemIcon)
                 }
                 containerView.addSubview(itemButton)
+                
+                let divider = UIView(frame: CGRectMake(0, containerView.frame.size.height+50, 300, 0.5))
+                divider.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+                containerView.addSubview(divider)
                 containerView.frame.size.height += 50
             }
         }
