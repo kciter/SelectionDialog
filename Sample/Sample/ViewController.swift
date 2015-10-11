@@ -22,15 +22,11 @@ class ViewController: UIViewController {
 
     @IBAction func showSelectionDialog() {
         let dialog = KCSelectionDialog(title: "Dialog", closeButtonTitle: "Close")
-        dialog.addItem(KCSelectionDialogItem(item: "Test1", icon: UIImage(named: "Icon1")!, didTapHandler: { () in
-            print("Test1 didTap!")
-        }))
-        dialog.addItem(KCSelectionDialogItem(item: "Test2", icon: UIImage(named: "Icon2")!, didTapHandler: { () in
-            print("Test2 didTap!")
-        }))
-        dialog.addItem(KCSelectionDialogItem(item: "Test3", icon: UIImage(named: "Icon3")!, didTapHandler: { () in
-            print("Test3 didTap!")
-        }))
+        dialog.addItem(item: "I have icon :)", icon: UIImage(named: "Icon1")!)
+        dialog.addItem(item: "I have icon and handler :D", icon: UIImage(named: "Icon2")!, didTapHandler: { () in
+            print("Item didTap!")
+        })
+        dialog.addItem(item: "I have nothing :(")
         dialog.show()
     }
 

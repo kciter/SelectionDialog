@@ -23,8 +23,7 @@ public class KCSelectionDialog: UIView {
     public var closeButtonColor: UIColor?
     public var closeButtonColorHighlighted: UIColor?
     
-    private var dialogView: UIView!
-    private var containerView: UIView!
+    private var dialogView: UIView?
     
     public init() {
         super.init(frame: CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height))
@@ -44,52 +43,37 @@ public class KCSelectionDialog: UIView {
     }
     
     public func show() {
-        dialogView = createAlertView()
+        dialogView = createDialogView()
+        guard let dialogView = dialogView else { return }
         
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = UIScreen.mainScreen().scale
-        
         self.backgroundColor = UIColor(white: 0, alpha: 0)
-        self.addSubview(dialogView)
         
-        switch (UIApplication.sharedApplication().statusBarOrientation) {
-        case UIInterfaceOrientation.LandscapeLeft:
-            self.transform = CGAffineTransformMakeRotation(CGFloat(M_PI * 270 / 180))
-            
-        case UIInterfaceOrientation.LandscapeRight:
-            self.transform = CGAffineTransformMakeRotation(CGFloat(M_PI * 90 / 180))
-            
-        case UIInterfaceOrientation.PortraitUpsideDown:
-            self.transform = CGAffineTransformMakeRotation(CGFloat(M_PI * 180 / 180))
-            
-        default:
-            break
-        }
+        dialogView.layer.opacity = 0.5
+        dialogView.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
+        self.addSubview(dialogView)
         
         self.frame = CGRectMake(0, 0, self.frame.width, self.frame.height)
         UIApplication.sharedApplication().keyWindow?.addSubview(self)
         
         UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             self.backgroundColor = UIColor(white: 0, alpha: 0.4)
-            self.dialogView.layer.opacity = 1
-            self.dialogView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+            dialogView.layer.opacity = 1
+            dialogView.layer.transform = CATransform3DMakeScale(1, 1, 1)
             }, completion: nil)
     }
     
     public func close() {
+        guard let dialogView = dialogView else { return }
         let currentTransform = dialogView.layer.transform
         
-        let startRotation = dialogView.valueForKeyPath("layer.transform.rotation.z")!.floatValue
-        let rotation = CATransform3DMakeRotation(CGFloat(-startRotation) + CGFloat(M_PI * 270 / 180), 0, 0, 0)
-        
-        
-        dialogView.layer.transform = CATransform3DConcat(rotation, CATransform3DMakeScale(1, 1, 1))
         dialogView.layer.opacity = 1
         
         UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.TransitionNone, animations: {
             self.backgroundColor = UIColor(white: 0, alpha: 0)
-            self.dialogView.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeScale(0.6, 0.6, 1))
-            self.dialogView.layer.opacity = 0
+            dialogView.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeScale(0.6, 0.6, 1))
+            dialogView.layer.opacity = 0
             }, completion: { (finished: Bool) in
                 for view in self.subviews {
                     view.removeFromSuperview()
@@ -99,43 +83,35 @@ public class KCSelectionDialog: UIView {
         })
     }
     
+    public func addItem(item itemTitle: String) {
+        let item = KCSelectionDialogItem(item: itemTitle)
+        items.append(item)
+    }
+    
+    public func addItem(item itemTitle: String, icon: UIImage) {
+        let item = KCSelectionDialogItem(item: itemTitle, icon: icon)
+        items.append(item)
+    }
+    
+    public func addItem(item itemTitle: String, didTapHandler: (() -> Void)) {
+        let item = KCSelectionDialogItem(item: itemTitle, didTapHandler: didTapHandler)
+        items.append(item)
+    }
+    
+    public func addItem(item itemTitle: String, icon: UIImage, didTapHandler: (() -> Void)) {
+        let item = KCSelectionDialogItem(item: itemTitle, icon: icon, didTapHandler: didTapHandler)
+        items.append(item)
+    }
+    
     public func addItem(item: KCSelectionDialogItem) {
         items.append(item)
     }
     
     private func setObservers() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "deviceOrientationDidChange:", name: UIDeviceOrientationDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name:UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name:UIKeyboardWillHideNotification, object: nil)
     }
     
-    private func createAlertView() -> UIView {
-        if containerView == nil {
-            containerView = UIView(frame: CGRectMake(0, 50, 300, 0))
-            for item in items {
-                let itemButton = UIButton(frame: CGRectMake(0, containerView.frame.size.height, 300, 50))
-                let itemTitleLabel = UILabel(frame: CGRectMake(10, 0, 255, 50))
-                itemTitleLabel.text = item.itemTitle
-                itemTitleLabel.textColor = UIColor.blackColor()
-                itemButton.addSubview(itemTitleLabel)
-                itemButton.setBackgroundImage(UIImage.createImageWithColor(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)), forState: .Highlighted)
-                itemButton.addTarget(item, action: "handlerTap", forControlEvents: .TouchUpInside)
-                
-                if item.icon != nil {
-                    itemTitleLabel.frame.origin.x = 54
-                    let itemIcon = UIImageView(frame: CGRectMake(10, 8, 34, 34))
-                    itemIcon.image = item.icon
-                    itemButton.addSubview(itemIcon)
-                }
-                containerView.addSubview(itemButton)
-                
-                let divider = UIView(frame: CGRectMake(0, containerView.frame.size.height+50, 300, 0.5))
-                divider.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
-                containerView.addSubview(divider)
-                containerView.frame.size.height += 50
-            }
-        }
-        
+    private func createDialogView() -> UIView {
         let screenSize = self.calculateScreenSize()
         let dialogSize = self.calculateDialogSize()
         
@@ -148,12 +124,9 @@ public class KCSelectionDialog: UIView {
         
         view.layer.cornerRadius = cornerRadius
         view.backgroundColor = UIColor.whiteColor()
-        view.layer.shadowRadius = cornerRadius + 5
-        view.layer.shadowOpacity = 0.1
+        view.layer.shadowRadius = cornerRadius
+        view.layer.shadowOpacity = 0.2
         view.layer.shadowColor = UIColor.blackColor().CGColor
-        
-        view.layer.opacity = 0.5
-        view.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
         
         view.layer.shouldRasterize = true
         view.layer.rasterizationScale = UIScreen.mainScreen().scale
@@ -162,46 +135,57 @@ public class KCSelectionDialog: UIView {
             applyMotionEffects(view)
         }
         
-        self.addTitleToView(view)
-        view.addSubview(containerView)
-        self.addCloseButtonToView(view)
+        view.addSubview(createTitleLabel())
+        view.addSubview(createContainerView())
+        view.addSubview(createCloseButton())
         
         return view
     }
     
-    private func addTitleToView(container: UIView) {
-        guard let title = title else { return }
-        
-        let view = UILabel(frame: CGRectMake(
-            0, 0,
-            container.bounds.size.width,
-            titleHeight
-            ))
+    private func createContainerView() -> UIView {
+        let containerView = UIView(frame: CGRectMake(0, titleHeight, 300, CGFloat(items.count*50)))
+        for (index, item) in items.enumerate() {
+            let itemButton = UIButton(frame: CGRectMake(0, CGFloat(index*50), 300, 50))
+            let itemTitleLabel = UILabel(frame: CGRectMake(10, 0, 255, 50))
+            itemTitleLabel.text = item.itemTitle
+            itemTitleLabel.textColor = UIColor.blackColor()
+            itemButton.addSubview(itemTitleLabel)
+            itemButton.setBackgroundImage(UIImage.createImageWithColor(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)), forState: .Highlighted)
+            itemButton.addTarget(item, action: "handlerTap", forControlEvents: .TouchUpInside)
+            
+            if item.icon != nil {
+                itemTitleLabel.frame.origin.x = 54
+                let itemIcon = UIImageView(frame: CGRectMake(10, 8, 34, 34))
+                itemIcon.image = item.icon
+                itemButton.addSubview(itemIcon)
+            }
+            containerView.addSubview(itemButton)
+            
+            let divider = UIView(frame: CGRectMake(0, CGFloat(index*50)+50, 300, 0.5))
+            divider.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
+            containerView.addSubview(divider)
+            containerView.frame.size.height += 50
+        }
+        return containerView
+    }
+    
+    private func createTitleLabel() -> UIView {
+        let view = UILabel(frame: CGRectMake(0, 0, 300, titleHeight))
         
         view.text = title
-        view.textAlignment = NSTextAlignment.Center
+        view.textAlignment = .Center
         view.font = UIFont.boldSystemFontOfSize(18.0)
+        
         let bottomLayer = CALayer()
         bottomLayer.frame = CGRectMake(0, view.bounds.size.height, view.bounds.size.width, 0.5)
         bottomLayer.backgroundColor = UIColor(red: 198/255, green: 198/255, blue: 198/255, alpha: 1).CGColor
         view.layer.addSublayer(bottomLayer)
         
-        container.addSubview(view)
+        return view
     }
     
-    private func addCloseButtonToView(container: UIView) {
-        guard let closeButtonTitle = closeButtonTitle else { return }
-        
-        let buttonWidth = container.bounds.size.width
-        
-        let button = UIButton(type: UIButtonType.Custom)
-        
-        button.frame = CGRectMake(
-            0,
-            container.bounds.size.height - buttonHeight,
-            buttonWidth,
-            buttonHeight
-        )
+    private func createCloseButton() -> UIButton {
+        let button = UIButton(frame: CGRectMake(0, titleHeight + CGFloat(items.count*50), 300, buttonHeight))
         
         button.addTarget(self, action: "close", forControlEvents: UIControlEvents.TouchUpInside)
         
@@ -214,29 +198,21 @@ public class KCSelectionDialog: UIView {
         button.setTitleColor(colorHighlighted, forState: UIControlState.Disabled)
         
         let topLayer = CALayer()
-        topLayer.frame = CGRectMake(0, 0, containerView.bounds.size.width, 0.5)
+        topLayer.frame = CGRectMake(0, 0, 300, 0.5)
         topLayer.backgroundColor = UIColor(red: 198/255, green: 198/255, blue: 198/255, alpha: 1).CGColor
         button.layer.addSublayer(topLayer)
         
-        container.addSubview(button)
+        return button
     }
     
     private func calculateDialogSize() -> CGSize {
-        return CGSizeMake(
-            containerView.frame.size.width,
-            containerView.frame.size.height + titleHeight + buttonHeight
-        )
+        return CGSizeMake(300, CGFloat(items.count)*50.0 + titleHeight + buttonHeight)
     }
     
     private func calculateScreenSize() -> CGSize {
         let width = UIScreen.mainScreen().bounds.width
         let height = UIScreen.mainScreen().bounds.height
-        
-        if orientationIsLandscape() {
-            return CGSizeMake(height, width)
-        } else {
-            return CGSizeMake(width, height)
-        }
+        return CGSizeMake(width, height)
     }
     
     private func applyMotionEffects(view: UIView) {
@@ -254,83 +230,18 @@ public class KCSelectionDialog: UIView {
         view.addMotionEffect(motionEffectGroup)
     }
     
-    private func orientationIsLandscape() -> Bool {
-        return UIInterfaceOrientationIsLandscape(UIApplication.sharedApplication().statusBarOrientation)
-    }
-    
     internal func deviceOrientationDidChange(notification: NSNotification) {
-        let interfaceOrientation = UIApplication.sharedApplication().statusBarOrientation
-        let startRotation: Float = self.valueForKeyPath("layer.transform.rotation.z")!.floatValue!
+        self.frame = CGRectMake(0, 0, UIScreen.mainScreen().bounds.size.width, UIScreen.mainScreen().bounds.size.height)
         
-        var rotation: CGAffineTransform
-        switch (interfaceOrientation) {
-        case UIInterfaceOrientation.LandscapeLeft:
-            rotation = CGAffineTransformMakeRotation(CGFloat(-startRotation) + CGFloat(M_PI * 270 / 180))
-            
-            break
-            
-        case UIInterfaceOrientation.LandscapeRight:
-            rotation = CGAffineTransformMakeRotation(CGFloat(-startRotation) + CGFloat(M_PI * 90 / 180))
-            break
-            
-        case UIInterfaceOrientation.PortraitUpsideDown:
-            rotation = CGAffineTransformMakeRotation(CGFloat(-startRotation) + CGFloat(M_PI * 180 / 180))
-            break
-            
-        default:
-            rotation = CGAffineTransformMakeRotation(CGFloat(-startRotation) + 0)
-            break
-        }
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.TransitionNone, animations: {
-            self.dialogView.transform = rotation
-            }, completion: nil)
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(0.5 * Double(NSEC_PER_SEC))), dispatch_get_main_queue(), {
-            let endInterfaceOrientation = UIApplication.sharedApplication().statusBarOrientation
-            if interfaceOrientation != endInterfaceOrientation {
-            }
-        })
-    }
-    
-    internal func keyboardWillShow(notification: NSNotification) {
         let screenSize = self.calculateScreenSize()
         let dialogSize = self.calculateDialogSize()
         
-        var keyboardSize = notification.userInfo![UIKeyboardFrameBeginUserInfoKey]!.CGRectValue.size
-        
-        if orientationIsLandscape() {
-            keyboardSize = CGSize(width: keyboardSize.height, height: keyboardSize.width)
-        }
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.TransitionNone, animations: {
-            self.dialogView.frame = CGRectMake((
-                screenSize.width - dialogSize.width) / 2,
-                (screenSize.height - keyboardSize.height - dialogSize.height) / 2,
-                dialogSize.width,
-                dialogSize.height
+        dialogView?.frame = CGRectMake(
+            (screenSize.width - dialogSize.width) / 2,
+            (screenSize.height - dialogSize.height) / 2,
+            dialogSize.width,
+            dialogSize.height
             )
-            }, completion: nil)
-    }
-    
-    internal func keyboardWillHide(notification: NSNotification) {
-        let screenSize = self.calculateScreenSize()
-        let dialogSize = self.calculateDialogSize()
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.TransitionNone, animations: {
-            self.dialogView.frame = CGRectMake(
-                (screenSize.width - dialogSize.width) / 2,
-                (screenSize.height - dialogSize.height) / 2,
-                dialogSize.width,
-                dialogSize.height
-            )
-            }, completion: nil)
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
     }
     
 }

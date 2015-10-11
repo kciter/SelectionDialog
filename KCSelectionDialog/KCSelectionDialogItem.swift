@@ -11,7 +11,6 @@ import UIKit
 public class KCSelectionDialogItem: NSObject {
     var icon: UIImage?
     var itemTitle: String
-    var enabled: Bool = true
     var handler: (() -> Void)?
     
     public init(item itemTitle: String) {
