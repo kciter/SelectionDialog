@@ -25,3 +25,4 @@ To install manually the KCSelectionDialog in an app, just drag the `KCSelectionD
 ## TODO
 * Update `README.md`
 * Add appearance
+* Swift 1.2 support
