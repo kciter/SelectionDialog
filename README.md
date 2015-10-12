@@ -17,7 +17,7 @@
 ### Cocoapods
 ```ruby
 use_frameworks!
-pod "KCJogDial"
+pod "KCSelectionDialog"
 ```
 ### Manually
 To install manually the KCSelectionDialog in an app, just drag the `KCSelectionDialog/*.swift` file into your project.
