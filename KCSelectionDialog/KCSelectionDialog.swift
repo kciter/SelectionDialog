@@ -244,4 +244,7 @@ public class KCSelectionDialog: UIView {
             )
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UIDeviceOrientationDidChangeNotification, object: nil)
+    }
 }
