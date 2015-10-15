@@ -3,6 +3,7 @@
 [![Version](https://img.shields.io/cocoapods/v/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
 [![License](https://img.shields.io/cocoapods/l/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
 [![Platform](https://img.shields.io/cocoapods/p/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
+[![Build Status](https://travis-ci.org/kciter/KCSelectionDialog.svg?branch=master)](https://travis-ci.org/kciter/KCSelectionDialog)
 
 # Preview
 <img src="https://github.com/kciter/KCSelectionDialog/raw/master/Images/preview.gif" alt="Preview gif">
