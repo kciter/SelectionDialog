@@ -13,7 +13,6 @@
 * Xcode 7.0
  
 ## Installation
-
 ### Cocoapods
 ```ruby
 use_frameworks!
@@ -21,6 +20,29 @@ pod "KCSelectionDialog"
 ```
 ### Manually
 To install manually the KCSelectionDialog in an app, just drag the `KCSelectionDialog/*.swift` file into your project.
+
+## Usage
+### Swift
+```swift
+let dialog = KCSelectionDialog(title: "Dialog", closeButtonTitle: "Close")
+dialog.addItem(item: "I have icon :)", icon: UIImage(named: "Icon1")!)
+dialog.addItem(item: "I have icon and handler :D", icon: UIImage(named: "Icon2")!, didTapHandler: { () in
+    print("Item didTap!")
+})
+dialog.addItem(item: "I have nothing :(")
+dialog.show()
+```
+
+### Objective-C
+```objc
+KCSelectionDialog *dialog = [[KCSelectionDialog alloc] initWithTitle:@"Dialog" closeButtonTitle:@"Close"];
+[dialog addItemWithItem:@"I have icon :)" icon:[UIImage imageNamed:@"Icon1"]];
+[dialog addItemWithItem:@"I have icon and handler :D" icon:[UIImage imageNamed:@"Icon2"] didTapHandler:^{
+    NSLog(@"Item didTap!");
+}];
+[dialog addItemWithItem:@"I have nothing :("];
+[dialog show];
+```
 
 ## TODO
 * Update `README.md`
