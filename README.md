@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/kciter/KCSelectionDialog.svg?branch=master)](https://travis-ci.org/kciter/KCSelectionDialog)
 
 # Preview
-<img src="https://github.com/kciter/KCSelectionDialog/raw/master/Images/preview.png" alt="Preview Image">
+<img src="https://github.com/kciter/KCSelectionDialog/raw/master/Images/preview.png" width='375px' alt="Preview Image">
 
 ## Requirements
 * iOS 8.0+
