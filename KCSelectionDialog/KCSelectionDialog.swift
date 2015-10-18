@@ -37,50 +37,51 @@ public class KCSelectionDialog: UIView {
         setObservers()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setObservers()
     }
     
     public func show() {
         dialogView = createDialogView()
-        guard let dialogView = dialogView else { return }
-        
-        self.layer.shouldRasterize = true
-        self.layer.rasterizationScale = UIScreen.mainScreen().scale
-        self.backgroundColor = UIColor(white: 0, alpha: 0)
-        
-        dialogView.layer.opacity = 0.5
-        dialogView.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
-        self.addSubview(dialogView)
-        
-        self.frame = CGRectMake(0, 0, self.frame.width, self.frame.height)
-        UIApplication.sharedApplication().keyWindow?.addSubview(self)
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
-            self.backgroundColor = UIColor(white: 0, alpha: 0.4)
-            dialogView.layer.opacity = 1
-            dialogView.layer.transform = CATransform3DMakeScale(1, 1, 1)
-            }, completion: nil)
+        if let dialogView = dialogView {
+            self.layer.shouldRasterize = true
+            self.layer.rasterizationScale = UIScreen.mainScreen().scale
+            self.backgroundColor = UIColor(white: 0, alpha: 0)
+            
+            dialogView.layer.opacity = 0.5
+            dialogView.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
+            self.addSubview(dialogView)
+            
+            self.frame = CGRectMake(0, 0, self.frame.width, self.frame.height)
+            UIApplication.sharedApplication().keyWindow?.addSubview(self)
+            
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                self.backgroundColor = UIColor(white: 0, alpha: 0.4)
+                dialogView.layer.opacity = 1
+                dialogView.layer.transform = CATransform3DMakeScale(1, 1, 1)
+                }, completion: nil)
+        }
     }
     
     public func close() {
-        guard let dialogView = dialogView else { return }
-        let currentTransform = dialogView.layer.transform
-        
-        dialogView.layer.opacity = 1
-        
-        UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.TransitionNone, animations: {
-            self.backgroundColor = UIColor(white: 0, alpha: 0)
-            dialogView.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeScale(0.6, 0.6, 1))
-            dialogView.layer.opacity = 0
-            }, completion: { (finished: Bool) in
-                for view in self.subviews {
-                    view.removeFromSuperview()
-                }
-                
-                self.removeFromSuperview()
-        })
+        if let dialogView = dialogView {
+            let currentTransform = dialogView.layer.transform
+            
+            dialogView.layer.opacity = 1
+            
+            UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.TransitionNone, animations: {
+                self.backgroundColor = UIColor(white: 0, alpha: 0)
+                dialogView.layer.transform = CATransform3DConcat(currentTransform, CATransform3DMakeScale(0.6, 0.6, 1))
+                dialogView.layer.opacity = 0
+                }, completion: { (finished: Bool) in
+                    for view in self.subviews {
+                        view.removeFromSuperview()
+                    }
+                    
+                    self.removeFromSuperview()
+            })
+        }
     }
     
     public func addItem(item itemTitle: String) {
@@ -144,7 +145,7 @@ public class KCSelectionDialog: UIView {
     
     private func createContainerView() -> UIView {
         let containerView = UIView(frame: CGRectMake(0, titleHeight, 300, CGFloat(items.count*50)))
-        for (index, item) in items.enumerate() {
+        for (index, item) in enumerate(items) {
             let itemButton = UIButton(frame: CGRectMake(0, CGFloat(index*50), 300, 50))
             let itemTitleLabel = UILabel(frame: CGRectMake(10, 0, 255, 50))
             itemTitleLabel.text = item.itemTitle
