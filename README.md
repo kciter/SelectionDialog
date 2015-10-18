@@ -5,7 +5,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
 
 # Preview
-<img src="https://github.com/kciter/KCSelectionDialog/raw/master/Images/preview.gif" alt="Preview gif">
+<img src="https://github.com/kciter/KCSelectionDialog/raw/master/Images/preview.png" alt="Preview Image">
 
 ## Requirements
 * iOS 8.0+
