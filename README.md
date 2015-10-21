@@ -5,6 +5,8 @@
 [![Platform](https://img.shields.io/cocoapods/p/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
 [![Build Status](https://travis-ci.org/kciter/KCSelectionDialog.svg?branch=master)](https://travis-ci.org/kciter/KCSelectionDialog)
 
+Simple selection dialog inspired from [ios-custom-alertview](https://github.com/wimagguc/ios-custom-alertview)
+
 # Preview
 <img src="https://github.com/kciter/KCSelectionDialog/raw/master/Images/preview.png" width='375px' alt="Preview Image">
 
