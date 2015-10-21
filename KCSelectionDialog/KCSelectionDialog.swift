@@ -155,7 +155,7 @@ public class KCSelectionDialog: UIView {
             itemButton.addTarget(item, action: "handlerTap", forControlEvents: .TouchUpInside)
             
             if item.icon != nil {
-                itemTitleLabel.frame.origin.x = 44 + itemPadding
+                itemTitleLabel.frame.origin.x = 34 + itemPadding*2
                 let itemIcon = UIImageView(frame: CGRectMake(itemPadding, 8, 34, 34))
                 itemIcon.image = item.icon
                 itemButton.addSubview(itemIcon)
