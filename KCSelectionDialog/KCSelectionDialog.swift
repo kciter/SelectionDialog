@@ -14,6 +14,7 @@ public class KCSelectionDialog: UIView {
     public var titleHeight: CGFloat = 50
     public var buttonHeight: CGFloat = 50
     public var cornerRadius: CGFloat = 7
+    public var itemPadding: CGFloat = 10
     
     public var useMotionEffects: Bool = true
     public var motionEffectExtent: Int = 10
@@ -147,7 +148,7 @@ public class KCSelectionDialog: UIView {
         let containerView = UIView(frame: CGRectMake(0, titleHeight, 300, CGFloat(items.count*50)))
         for (index, item) in enumerate(items) {
             let itemButton = UIButton(frame: CGRectMake(0, CGFloat(index*50), 300, 50))
-            let itemTitleLabel = UILabel(frame: CGRectMake(10, 0, 255, 50))
+            let itemTitleLabel = UILabel(frame: CGRectMake(itemPadding, 0, 255, 50))
             itemTitleLabel.text = item.itemTitle
             itemTitleLabel.textColor = UIColor.blackColor()
             itemButton.addSubview(itemTitleLabel)
@@ -155,8 +156,8 @@ public class KCSelectionDialog: UIView {
             itemButton.addTarget(item, action: "handlerTap", forControlEvents: .TouchUpInside)
             
             if item.icon != nil {
-                itemTitleLabel.frame.origin.x = 54
-                let itemIcon = UIImageView(frame: CGRectMake(10, 8, 34, 34))
+                itemTitleLabel.frame.origin.x = 34 + itemPadding*2
+                let itemIcon = UIImageView(frame: CGRectMake(itemPadding, 8, 34, 34))
                 itemIcon.image = item.icon
                 itemButton.addSubview(itemIcon)
             }
