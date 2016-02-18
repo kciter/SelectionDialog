@@ -16,7 +16,7 @@ Simple selection dialog inspired from [ios-custom-alertview](https://github.com/
 * Xcode 7.0
  
 ## Installation
-### Cocoapods
+### CocoaPods
 ```ruby
 use_frameworks!
 pod "KCSelectionDialog"
