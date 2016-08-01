@@ -94,6 +94,11 @@ public class KCSelectionDialog: UIView {
         items.append(item)
     }
     
+    public func addItem(item itemTitle: String, icon: UIImage, font: UIFont) {
+        let item = KCSelectionDialogItem(item: itemTitle, icon: icon, font: font)
+        items.append(item)
+    }
+    
     public func addItem(item itemTitle: String, didTapHandler: (() -> Void)) {
         let item = KCSelectionDialogItem(item: itemTitle, didTapHandler: didTapHandler)
         items.append(item)
@@ -150,9 +155,10 @@ public class KCSelectionDialog: UIView {
             let itemTitleLabel = UILabel(frame: CGRectMake(itemPadding, 0, 255, 50))
             itemTitleLabel.text = item.itemTitle
             itemTitleLabel.textColor = UIColor.blackColor()
+            itemTitleLabel.font = item.font
             itemButton.addSubview(itemTitleLabel)
             itemButton.setBackgroundImage(UIImage.createImageWithColor(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)), forState: .Highlighted)
-          itemButton.addTarget(item, action: #selector(KCSelectionDialogItem.handlerTap), forControlEvents: .TouchUpInside)
+            itemButton.addTarget(item, action: #selector(KCSelectionDialogItem.handlerTap), forControlEvents: .TouchUpInside)
             
             if item.icon != nil {
                 itemTitleLabel.frame.origin.x = 34 + itemPadding*2
