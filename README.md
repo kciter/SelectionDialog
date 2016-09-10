@@ -1,5 +1,5 @@
 # KCSelectionDialog
-![Swift 2.0](https://img.shields.io/badge/Swift-2.0-orange.svg)
+![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg)
 [![Version](https://img.shields.io/cocoapods/v/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
 [![License](https://img.shields.io/cocoapods/l/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
 [![Platform](https://img.shields.io/cocoapods/p/KCSelectionDialog.svg?style=flat)](http://cocoapods.org/pods/kcselectiondialog)
@@ -12,8 +12,8 @@ Simple selection dialog inspired from [ios-custom-alertview](https://github.com/
 
 ## Requirements
 * iOS 8.0+
-* Swift 2
-* Xcode 7.0
+* Swift 3
+* Xcode 8.0
  
 ## Installation
 ### Cocoapods
@@ -46,8 +46,3 @@ KCSelectionDialog *dialog = [[KCSelectionDialog alloc] initWithTitle:@"Dialog" c
 [dialog addItemWithItem:@"I have nothing :("];
 [dialog show];
 ```
-
-## TODO
-* Update `README.md`
-* Add appearance
-* Swift 1.2 support
