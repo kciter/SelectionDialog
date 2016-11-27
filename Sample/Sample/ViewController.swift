@@ -27,6 +27,15 @@ class ViewController: UIViewController {
             print("Item didTap!")
         })
         dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
+        dialog.addItem(item: "I have nothing :(")
         dialog.show()
     }
 

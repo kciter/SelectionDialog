@@ -15,6 +15,7 @@ open class KCSelectionDialog: UIView {
     open var buttonHeight: CGFloat = 50
     open var cornerRadius: CGFloat = 7
     open var itemPadding: CGFloat = 10
+    open var minHeight: CGFloat = 300
     
     open var useMotionEffects: Bool = true
     open var motionEffectExtent: Int = 10
@@ -53,6 +54,7 @@ open class KCSelectionDialog: UIView {
         
         dialogView.layer.opacity = 0.5
         dialogView.layer.transform = CATransform3DMakeScale(1.3, 1.3, 1)
+        
         self.addSubview(dialogView)
         
         self.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
@@ -143,8 +145,8 @@ open class KCSelectionDialog: UIView {
         return view
     }
     
-    fileprivate func createContainerView() -> UIView {
-        let containerView = UIView(frame: CGRect(x: 0, y: titleHeight, width: 300, height: CGFloat(items.count*50)))
+    fileprivate func createContainerView() -> UIScrollView {
+        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: CGFloat(items.count*50)))
         for (index, item) in items.enumerated() {
             let itemButton = UIButton(frame: CGRect(x: 0, y: CGFloat(index*50), width: 300, height: 50))
             let itemTitleLabel = UILabel(frame: CGRect(x: itemPadding, y: 0, width: 255, height: 50))
@@ -167,7 +169,12 @@ open class KCSelectionDialog: UIView {
             containerView.addSubview(divider)
             containerView.frame.size.height += 50
         }
-        return containerView
+        
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: titleHeight, width: 300, height: minHeight))
+        scrollView.contentSize.height = CGFloat(items.count*50)
+        scrollView.addSubview(containerView)
+        
+        return scrollView
     }
     
     fileprivate func createTitleLabel() -> UIView {
@@ -186,7 +193,8 @@ open class KCSelectionDialog: UIView {
     }
     
     fileprivate func createCloseButton() -> UIButton {
-        let button = UIButton(frame: CGRect(x: 0, y: titleHeight + CGFloat(items.count*50), width: 300, height: buttonHeight))
+        let minValue = min(CGFloat(items.count)*50.0, minHeight)
+        let button = UIButton(frame: CGRect(x: 0, y: titleHeight + minValue, width: 300, height: buttonHeight))
         
         button.addTarget(self, action: #selector(KCSelectionDialog.close), for: UIControlEvents.touchUpInside)
         
@@ -207,7 +215,8 @@ open class KCSelectionDialog: UIView {
     }
     
     fileprivate func calculateDialogSize() -> CGSize {
-        return CGSize(width: 300, height: CGFloat(items.count)*50.0 + titleHeight + buttonHeight)
+        let minValue = min(CGFloat(items.count)*50.0, minHeight)
+        return CGSize(width: 300, height: minValue + titleHeight + buttonHeight)
     }
     
     fileprivate func calculateScreenSize() -> CGSize {
