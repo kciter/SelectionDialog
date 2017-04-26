@@ -7,18 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B671D92B1EB119BA005EE7E1 /* SelectionDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B671D9281EB119BA005EE7E1 /* SelectionDialog.swift */; };
+		B671D92C1EB119BA005EE7E1 /* SelectionDialogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B671D9291EB119BA005EE7E1 /* SelectionDialogItem.swift */; };
+		B671D92D1EB119BA005EE7E1 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B671D92A1EB119BA005EE7E1 /* UIImageExtension.swift */; };
 		B692BF1F1BB7AD7800A8B098 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692BF1E1BB7AD7800A8B098 /* AppDelegate.swift */; };
 		B692BF211BB7AD7800A8B098 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692BF201BB7AD7800A8B098 /* ViewController.swift */; };
 		B692BF241BB7AD7800A8B098 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B692BF221BB7AD7800A8B098 /* Main.storyboard */; };
 		B692BF261BB7AD7800A8B098 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B692BF251BB7AD7800A8B098 /* Assets.xcassets */; };
 		B692BF291BB7AD7800A8B098 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B692BF271BB7AD7800A8B098 /* LaunchScreen.storyboard */; };
 		B692BF461BBA639700A8B098 /* Sample.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B692BF451BBA639700A8B098 /* Sample.xcassets */; };
-		B6FE03A31BC6E26D0032A455 /* KCSelectionDialog.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE03A01BC6E26D0032A455 /* KCSelectionDialog.swift */; };
-		B6FE03A41BC6E26D0032A455 /* KCSelectionDialogItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE03A11BC6E26D0032A455 /* KCSelectionDialogItem.swift */; };
-		B6FE03A51BC6E26D0032A455 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FE03A21BC6E26D0032A455 /* UIImageExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B671D9281EB119BA005EE7E1 /* SelectionDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionDialog.swift; path = ../../SelectionDialog/SelectionDialog.swift; sourceTree = "<group>"; };
+		B671D9291EB119BA005EE7E1 /* SelectionDialogItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionDialogItem.swift; path = ../../SelectionDialog/SelectionDialogItem.swift; sourceTree = "<group>"; };
+		B671D92A1EB119BA005EE7E1 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../../SelectionDialog/UIImageExtension.swift; sourceTree = "<group>"; };
 		B692BF1B1BB7AD7800A8B098 /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B692BF1E1BB7AD7800A8B098 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B692BF201BB7AD7800A8B098 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -27,9 +30,6 @@
 		B692BF281BB7AD7800A8B098 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B692BF2A1BB7AD7800A8B098 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B692BF451BBA639700A8B098 /* Sample.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Sample.xcassets; sourceTree = "<group>"; };
-		B6FE03A01BC6E26D0032A455 /* KCSelectionDialog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KCSelectionDialog.swift; path = ../../KCSelectionDialog/KCSelectionDialog.swift; sourceTree = "<group>"; };
-		B6FE03A11BC6E26D0032A455 /* KCSelectionDialogItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KCSelectionDialogItem.swift; path = ../../KCSelectionDialog/KCSelectionDialogItem.swift; sourceTree = "<group>"; };
-		B6FE03A21BC6E26D0032A455 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIImageExtension.swift; path = ../../KCSelectionDialog/UIImageExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +62,7 @@
 		B692BF1D1BB7AD7800A8B098 /* Sample */ = {
 			isa = PBXGroup;
 			children = (
-				B692BF421BB9AF1700A8B098 /* KCSelectionDialog */,
+				B692BF421BB9AF1700A8B098 /* SelectionDialog */,
 				B692BF1E1BB7AD7800A8B098 /* AppDelegate.swift */,
 				B692BF201BB7AD7800A8B098 /* ViewController.swift */,
 				B692BF221BB7AD7800A8B098 /* Main.storyboard */,
@@ -74,14 +74,14 @@
 			path = Sample;
 			sourceTree = "<group>";
 		};
-		B692BF421BB9AF1700A8B098 /* KCSelectionDialog */ = {
+		B692BF421BB9AF1700A8B098 /* SelectionDialog */ = {
 			isa = PBXGroup;
 			children = (
-				B6FE03A01BC6E26D0032A455 /* KCSelectionDialog.swift */,
-				B6FE03A11BC6E26D0032A455 /* KCSelectionDialogItem.swift */,
-				B6FE03A21BC6E26D0032A455 /* UIImageExtension.swift */,
+				B671D9281EB119BA005EE7E1 /* SelectionDialog.swift */,
+				B671D9291EB119BA005EE7E1 /* SelectionDialogItem.swift */,
+				B671D92A1EB119BA005EE7E1 /* UIImageExtension.swift */,
 			);
-			name = KCSelectionDialog;
+			name = SelectionDialog;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,10 +158,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B692BF211BB7AD7800A8B098 /* ViewController.swift in Sources */,
-				B6FE03A41BC6E26D0032A455 /* KCSelectionDialogItem.swift in Sources */,
-				B6FE03A31BC6E26D0032A455 /* KCSelectionDialog.swift in Sources */,
-				B6FE03A51BC6E26D0032A455 /* UIImageExtension.swift in Sources */,
+				B671D92C1EB119BA005EE7E1 /* SelectionDialogItem.swift in Sources */,
 				B692BF1F1BB7AD7800A8B098 /* AppDelegate.swift in Sources */,
+				B671D92D1EB119BA005EE7E1 /* UIImageExtension.swift in Sources */,
+				B671D92B1EB119BA005EE7E1 /* SelectionDialog.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

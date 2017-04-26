@@ -1,14 +1,14 @@
 //
-//  KCSelectionDialogItem.swift
+//  SelectionDialogItem.swift
 //  Sample
 //
 //  Created by LeeSunhyoup on 2015. 9. 29..
-//  Copyright © 2015년 KCSelectionView. All rights reserved.
+//  Copyright © 2015년 SelectionView. All rights reserved.
 //
 
 import UIKit
 
-open class KCSelectionDialogItem: NSObject {
+open class SelectionDialogItem: NSObject {
     var icon: UIImage?
     var itemTitle: String
     var handler: (() -> Void)?

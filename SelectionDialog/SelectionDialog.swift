@@ -1,15 +1,15 @@
 //
-//  KCSelectionDialog.swift
+//  SelectionDialog.swift
 //  Sample
 //
 //  Created by LeeSunhyoup on 2015. 9. 28..
-//  Copyright © 2015년 KCSelectionView. All rights reserved.
+//  Copyright © 2015년 SelectionView. All rights reserved.
 //
 
 import UIKit
 
-open class KCSelectionDialog: UIView {
-    open var items: [KCSelectionDialogItem] = []
+open class SelectionDialog: UIView {
+    open var items: [SelectionDialogItem] = []
     
     open var titleHeight: CGFloat = 50
     open var buttonHeight: CGFloat = 50
@@ -87,31 +87,31 @@ open class KCSelectionDialog: UIView {
     }
     
     open func addItem(item itemTitle: String) {
-        let item = KCSelectionDialogItem(item: itemTitle)
+        let item = SelectionDialogItem(item: itemTitle)
         items.append(item)
     }
     
     open func addItem(item itemTitle: String, icon: UIImage) {
-        let item = KCSelectionDialogItem(item: itemTitle, icon: icon)
+        let item = SelectionDialogItem(item: itemTitle, icon: icon)
         items.append(item)
     }
     
     open func addItem(item itemTitle: String, didTapHandler: @escaping (() -> Void)) {
-        let item = KCSelectionDialogItem(item: itemTitle, didTapHandler: didTapHandler)
+        let item = SelectionDialogItem(item: itemTitle, didTapHandler: didTapHandler)
         items.append(item)
     }
     
     open func addItem(item itemTitle: String, icon: UIImage, didTapHandler: @escaping (() -> Void)) {
-        let item = KCSelectionDialogItem(item: itemTitle, icon: icon, didTapHandler: didTapHandler)
+        let item = SelectionDialogItem(item: itemTitle, icon: icon, didTapHandler: didTapHandler)
         items.append(item)
     }
     
-    open func addItem(_ item: KCSelectionDialogItem) {
+    open func addItem(_ item: SelectionDialogItem) {
         items.append(item)
     }
     
     fileprivate func setObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(KCSelectionDialog.deviceOrientationDidChange(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SelectionDialog.deviceOrientationDidChange(_:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
     
     fileprivate func createDialogView() -> UIView {
@@ -154,7 +154,7 @@ open class KCSelectionDialog: UIView {
             itemTitleLabel.textColor = UIColor.black
             itemButton.addSubview(itemTitleLabel)
             itemButton.setBackgroundImage(UIImage.createImageWithColor(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)), for: .highlighted)
-            itemButton.addTarget(item, action: #selector(KCSelectionDialogItem.handlerTap), for: .touchUpInside)
+            itemButton.addTarget(item, action: #selector(SelectionDialogItem.handlerTap), for: .touchUpInside)
             
             if item.icon != nil {
                 itemTitleLabel.frame.origin.x = 34 + itemPadding*2
@@ -196,7 +196,7 @@ open class KCSelectionDialog: UIView {
         let minValue = min(CGFloat(items.count)*50.0, minHeight)
         let button = UIButton(frame: CGRect(x: 0, y: titleHeight + minValue, width: 300, height: buttonHeight))
         
-        button.addTarget(self, action: #selector(KCSelectionDialog.close), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(SelectionDialog.close), for: UIControlEvents.touchUpInside)
         
         let colorNormal = closeButtonColor != nil ? closeButtonColor : button.tintColor
         let colorHighlighted = closeButtonColorHighlighted != nil ? closeButtonColorHighlighted : colorNormal?.withAlphaComponent(0.5)

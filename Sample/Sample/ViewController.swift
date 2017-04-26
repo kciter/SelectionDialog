@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func showSelectionDialog() {
-        let dialog = KCSelectionDialog(title: "Dialog", closeButtonTitle: "Close")
+        let dialog = SelectionDialog(title: "Dialog", closeButtonTitle: "Close")
         dialog.addItem(item: "I have icon :)", icon: UIImage(named: "Icon1")!)
         dialog.addItem(item: "I have icon and handler :D", icon: UIImage(named: "Icon2")!, didTapHandler: { () in
             print("Item didTap!")
