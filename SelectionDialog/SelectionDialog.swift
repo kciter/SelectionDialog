@@ -67,7 +67,7 @@ open class SelectionDialog: UIView {
             }, completion: nil)
     }
     
-    open func close() {
+    @objc open func close() {
         guard let dialogView = dialogView else { return }
         let currentTransform = dialogView.layer.transform
         
@@ -240,7 +240,7 @@ open class SelectionDialog: UIView {
         view.addMotionEffect(motionEffectGroup)
     }
     
-    internal func deviceOrientationDidChange(_ notification: Notification) {
+    @objc internal func deviceOrientationDidChange(_ notification: Notification) {
         self.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         
         let screenSize = self.calculateScreenSize()
@@ -258,3 +258,5 @@ open class SelectionDialog: UIView {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
     }
 }
+
+

@@ -42,3 +42,18 @@ dialog.addItem(item: "I have icon and handler :D", icon: UIImage(named: "Icon2")
 dialog.addItem(item: "I have nothing :(")
 dialog.show()
 ```
+
+If you want to launch the dialog at the starting point of the app, make sure you put the code inside DispatchQueue.main.async. Otherwise it will not work
+```swift
+override func viewDidLoad() {
+    DispatchQueue.main.async {
+        let dialog = SelectionDialog(title: "Dialog", closeButtonTitle: "Close")
+        dialog.addItem(item: "I have icon :)", icon: UIImage(named: "Icon1")!)
+        dialog.addItem(item: "I have icon and handler :D", icon: UIImage(named: "Icon2")!, didTapHandler: { () in
+            print("Item didTap!")
+        })
+        dialog.addItem(item: "I have nothing :(")
+        dialog.show()
+    }
+}
+```

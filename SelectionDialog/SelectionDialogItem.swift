@@ -41,7 +41,7 @@ open class SelectionDialogItem: NSObject {
         self.font = font
     }
     
-    func handlerTap() {
+    @objc func handlerTap() {
         handler?()
     }
 }
