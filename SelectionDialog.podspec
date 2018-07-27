@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "SelectionDialog"
-  s.version      = "2.0.0"
+  s.version      = "3.0.0"
   s.summary      = "Simple selection dialog"
   s.homepage     = "https://github.com/kciter/SelectionDialog"
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
