@@ -14,6 +14,8 @@ open class SelectionDialogItem: NSObject {
     var handler: (() -> Void)?
     var font: UIFont?
     
+    public typealias CompletionBlock = () -> Void
+    
     public init(item itemTitle: String) {
         self.itemTitle = itemTitle
     }
@@ -23,18 +25,18 @@ open class SelectionDialogItem: NSObject {
         self.icon = icon
     }
     
-    public init(item itemTitle: String, didTapHandler: @escaping (() -> Void)) {
+    public init(item itemTitle: String, didTapHandler: @escaping CompletionBlock) {
         self.itemTitle = itemTitle
         self.handler = didTapHandler
     }
     
-    public init(item itemTitle: String, icon: UIImage, didTapHandler: @escaping (() -> Void)) {
+    public init(item itemTitle: String, icon: UIImage, didTapHandler: @escaping CompletionBlock) {
         self.itemTitle = itemTitle
         self.icon = icon
         self.handler = didTapHandler
     }
     
-    public init(item itemTitle: String, icon: UIImage, font: UIFont, didTapHandler: @escaping (() -> Void)) {
+    public init(item itemTitle: String, icon: UIImage, font: UIFont, didTapHandler: @escaping CompletionBlock) {
         self.itemTitle = itemTitle
         self.icon = icon
         self.handler = didTapHandler
